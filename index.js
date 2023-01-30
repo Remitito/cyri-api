@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const corsOptions = require('./config/corsOptions')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 require('dotenv').config()
@@ -9,6 +10,9 @@ require('dotenv').config()
 // values
 const port = process.env.PORT;
 const db_url = process.env.DB_URL;
+
+app.use(cors(corsOptions))
+
 
 // db connection
 mongoose.connect(db_url, 
@@ -23,7 +27,6 @@ db.once('open', function() {console.log("Connected to DB")})
 const routes = require('./routes');
 
 // middleware
-app.use(cors())
 app.use(bodyParser.json())
 app.use('/', routes)
 
