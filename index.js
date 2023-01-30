@@ -12,7 +12,7 @@ const port = process.env.PORT;
 const db_url = process.env.DB_URL;
 
 app.use(cors(corsOptions))
-
+app.use(express.static(__dirname + "/public/"));
 
 // db connection
 mongoose.connect(db_url, 
