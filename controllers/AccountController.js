@@ -12,23 +12,24 @@ exports.postRegister = async function(req,res) {
     const output = await addUser(username, email, securePassword, membershipLength)
     res.send(output)
 }
-exports.postLogin = async function(req,res) {
-    const {username, email, password, loginMethod} = req.body.state
-    let user = {}
-    if(loginMethod === "email") {
-        user = await User.findOne({email}).lean() // lean disables unnecessary functionality
-    }
-    else {
-        user = await User.findOne({username}).lean() // lean disables unnecessary functionality
-    }
-        if(await bcrypt.compare(password, user.password)) {
-            res.send('success')
-        }
-        else {
-            res.send('fail')
-        }
-}
 
+exports.postLogin = async function(req, res) {
+  const { usernameEmail, password } = req.body.state;
+  let user = {};
+  try {
+    user = await User.findOne({
+      $or: [{ username: usernameEmail }, { email: usernameEmail }],
+    }).lean(); // lean disables unnecessary functionality
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      res.send(user.username);
+    } else {
+      res.send('fail');
+    }
+  } catch {
+    res.send('fail');
+  }
+};
 
 exports.postPassword = async function(req,res) {
     const token = req.body.token
