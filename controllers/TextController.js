@@ -17,44 +17,31 @@ exports.checkLevelPostShare = function(req,res) {
 }
 
 
-exports.getPageCount = async function(req,res) {
-    const level = req.body.level
-    if(level === "all") {
-        UserText.find()
-        .exec(function(err, pages) {
-            if(err) {res.send(err)}
-            const pageCount = Math.ceil(pages.length / 10).toString()
-            res.send(Math.ceil(pages.length / 10).toString())
-        })
-    }
-    else {
-        UserText.find({'level': level})
-        .exec(function(err, pages) {
-            if(err) {res.send(err)}
-            const totalPages = Math.ceil(pages.length / 10).toString()
-            res.send(totalPages)
-        })
-    }
-}
 
-// gets first 10 pages
-exports.getTexts = function(req,res) {
-    const {pageNum, level} = req.body
-    if(level === "all") {
-        UserText.find().sort({date: -1}).skip(pageNum * 10).limit(10)
-        .exec(function(err, pages) {
-            if(err) {res.send(err)}
-            res.send(pages);
-        })
+exports.getPageCount = async function (req, res) {
+    try {
+      const level = req.body.level;
+      const query = level === "all" ? {} : { level: level };
+      const pageCount = await UserText.countDocuments(query);
+      res.send(Math.ceil(pageCount / 10).toString());
+    } catch (err) {
+      res.status(500).send(err.message);
     }
-    else {
-        UserText.find({'level': level}).sort({date: -1}).skip(pageNum * 10).limit(10)
-        .exec(function(err, pages) {
-            if(err) {res.send(err)}
-            res.send(pages);
-        })
+  };
+  
+  exports.getTexts = async function (req, res) {
+    try {
+      const { pageNum, level } = req.body;
+      const query = level === "all" ? {} : { level: level };
+      const texts = await UserText.find(query)
+        .sort({ date: -1 })
+        .skip(pageNum * 10)
+        .limit(10);
+      res.send(texts);
+    } catch (err) {
+      res.status(500).send(err.message);
     }
-}
+  };
 
 
 exports.getOne = function(req,res) {

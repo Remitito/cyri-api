@@ -47,7 +47,7 @@ const findLevel = function(userText, userLanguage) {
     for(let i = 0; i < fileNames.length; i++) {
         var str = fs.readFileSync(`./docs/${userLanguage}/${fileNames[i]}`, 'utf-8') // read vocab list
         let result = compareTexts(userTextArray, str.split(' ')) // get % of text in word list
-        if(result < 80 && i < fileNames.length) { // if under 77% in level's word list
+        if(result < 75 && i < fileNames.length) { // if under 75% in level's word list
             continue;
         }
         else {

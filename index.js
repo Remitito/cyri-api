@@ -1,4 +1,3 @@
-// imports
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -7,13 +6,11 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-// values
 const port = process.env.PORT;
 const db_url = process.env.DB_URL;
 
 app.use(cors())
 
-// db connection
 mongoose.connect(db_url, 
     {useNewUrlParser: true,
     useUnifiedTopology: true})
@@ -22,10 +19,8 @@ db.on('error', console.error.bind(console, 'DB connection error'))
 db.once('open', function() {console.log("Connected to DB")})
 
 
-//routes
 const routes = require('./routes');
 
-// middleware
 app.use(bodyParser.json())
 app.use('/', routes)
 
