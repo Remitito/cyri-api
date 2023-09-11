@@ -6,6 +6,10 @@ This is the back end of Can You Read It, a website that helps language teachers 
 
 The live version can be found at: https://can-you-read-it-atd5.onrender.com/
 
+**Client / Front end**
+
+Can You Read It's front end repo can be found here: https://github.com/Remitito/cyri-client
+
 **Functions of the API**
 
 - The words in the digital text sent via Axios from the frontend are compared to each CEFR vocabulary list stored on the backend, the lowest level that contains at least 80% of the words in the text is chosen as the difficulty level.
