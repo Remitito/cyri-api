@@ -26,6 +26,10 @@ const cutText = function(text) {
 }
 
 const addText = function(language, title, text, level, url, user) {
+    let username = user
+    if(username.length === 0) {
+        username = "Guest"
+    }
     const NewText = new UserText({
         language: language,
         title: title,
@@ -34,7 +38,7 @@ const addText = function(language, title, text, level, url, user) {
         dateString: formatDate(),
         level: level,
         url: url,
-        user: user,
+        user: username,
         views: 0,
         preview: text.split(' ').length >= 350 // if it's longer than 400 words, just show preview
     })
