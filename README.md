@@ -1,4 +1,4 @@
-_This project is no longer maintained and the API is now on a free tier, meaning it spins down so there is a large delay when browsing texts._
+_This project is no longer maintained and the API is now on a free tier, meaning it spins down so there is a large delay when browsing texts. It was also made before the wide availability of generative AI, so the level-checking algorithm simply uses levelled word lists._
 
 **Can You Read It**
 
