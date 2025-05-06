@@ -1,3 +1,5 @@
+_This project is no longer maintained and the API is now on a free tier, meaning it spins down so there is a large delay when browsing texts._
+
 **Can You Read It**
 
 This is the back end of Can You Read It, a website that helps language teachers check their reading material is suitable for students and helps language learners find content at their level.
